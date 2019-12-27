@@ -78,4 +78,3 @@ class MainActivity : AppCompatActivity() {
             // Permission has already been granted
         }
 }
-
