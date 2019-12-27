@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">madcamp_1st_week</string>
+    <string name="app_name">MadCamp_1st</string>
+    <string name="contacts">
+        <font size="15">Contacts</font>
+    </string>
+    <string name="gallery">
+        <font size="15">Gallery</font>
+    </string>
+    <string name="custom">
+        <font size="15">Custom</font>
+    </string>
 </resources>
