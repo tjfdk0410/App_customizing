@@ -11,7 +11,7 @@ class ContactFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.activity_main, container, false)
+    ): View? = inflater.inflate(R.layout.contacts, container, false)
 }
 
 class GalleryFragment: Fragment() {
