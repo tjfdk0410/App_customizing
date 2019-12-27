@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.madcamp_1st">
 
+    <!-- modified for permission on contact-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!-- modified -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +16,9 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <!-- modified for warning -->
+                <action android:name="android.intent.action.VIEW" />
+                <!-- modified -->
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
