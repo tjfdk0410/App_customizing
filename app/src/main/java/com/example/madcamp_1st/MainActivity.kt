@@ -9,40 +9,53 @@ import android.provider.ContactsContract
 import androidx.core.app.ActivityCompat
 import java.lang.StringBuilder
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var toolbar: ActionBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // setViews
-        setViews()
+        supportActionBar!!.title = "Contacts"
+        // set bottom navigation bar
+        setBottomNavBar()
         // 기능
         setPermissions()
         loadMyContacts()
     }
 
     /**
-     *  setViews()
+     *  setBottomNavBar()
      *      configure views for navigation bar
      */
-    private fun setViews() {
-//        bottom_navigation.setOnNavigationItemSelectedListener {
-//            menuItem ->
-//                when (menuItem.itemId) {
-//                    R.id.navigation_contacts -> {
-//                        supportFragmentManager.beginTransaction().replace(R.id.container, ContactFragment())
-//                    }
-//                    R.id.navigation_gallery -> {
-//
-//                    }
-//                    R.id.navigation_custom -> {
-//
-//                    }
-//                }
-//        }
+    private fun setBottomNavBar() {
+        toolbar = supportActionBar!!
+        // listen selection
+        bottom_navigation.setOnNavigationItemSelectedListener {
+                item ->
+            when (item.itemId) {
+                R.id.navigation_contacts -> {
+                    val fragment = ContactFragment()
+                    toolbar.title = "Contacts"
+                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+                }
+                R.id.navigation_gallery -> {
+                    val fragment = GalleryFragment()
+                    toolbar.title = "Gallery"
+                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+                }
+                R.id.navigation_custom -> {
+                    val fragment = CustomFragment()
+                    toolbar.title = "Custom"
+                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+                }
+            }
+            false
+        }
     }
     /**
      * setPermissions()
@@ -56,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 // description here if needed.
             } else {
                 // No explanation needed, we can request the permission.
-                // TODO: handling the answer of the permission request
+                // TODO
                 ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_READ_CONTACTS)
             }
         } else {
@@ -73,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         val contactsPointer = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
         // if some errors occur (manage null pointer exception)
         if (contactsPointer == null) {
-            System.exit(0) // exit app
+            System.exit(0); // some errors
         } else {    // no errors below
             // if there's any contacts
             if (contactsPointer.count > 0) {
@@ -87,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                         val phoneNumberPointer = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", arrayOf(id), null)
 
                         if (phoneNumberPointer == null) {
-                            System.exit(0) // exit app
+                            System.exit(0); // some errors
                         } else {
                             if (phoneNumberPointer.count > 0) {
                                 while (phoneNumberPointer.moveToNext()) {

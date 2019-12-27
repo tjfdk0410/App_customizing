@@ -19,7 +19,7 @@ class GalleryFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.activity_main, container, false)
+    ): View? = inflater.inflate(R.layout.gallery, container, false)
 }
 
 class CustomFragment: Fragment() {
@@ -27,5 +27,5 @@ class CustomFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.activity_main, container, false)
+    ): View? = inflater.inflate(R.layout.custom, container, false)
 }
