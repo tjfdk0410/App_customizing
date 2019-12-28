@@ -25,26 +25,6 @@ class MainActivity : AppCompatActivity() {
         // sync view pager with tabs
         tab.setupWithViewPager(view_pager)
 
-        // handle tab click event
-        tab.setOnClickListener {
-              view ->
-                Toast.makeText(this@MainActivity, "${view.id}", Toast.LENGTH_LONG).show()
-//                when (view.id)
-        }
-        tab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                view_pager.currentItem = tab.position
-//                Toast.makeText(this@MainActivity, "${tab.position}", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
-        })
     }
 
 }
