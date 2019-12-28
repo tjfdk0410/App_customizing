@@ -13,32 +13,42 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.gallery.*
 
-override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-): View? = inflater.inflate(R.layout.gallery, container, false)
-}
 
 class GalleryFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) :View? {
-        val view = inflater.inflate(R.layout.gallery, container, false)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        //BUTTON CLICK
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) :View? {
+        val view = inflater.inflate(R.layout.gallery, container, false) //fragement 생성 위한 view를 gallery에서 띄우고 반환
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getgallerypermission()
+
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+    }
+
+
+    private fun getgallerypermission() {
         img_pick_btn.setOnClickListener {
             //check runtime permission
             if (VERSION.SDK_INT >= VERSION_CODES.M){
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED){
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -47,20 +57,21 @@ class GalleryFragment: Fragment() {
                 }
                 else{
                     //permission already granted
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 }
             }
             else{
                 //system OS is < Marshmallow
-                pickImageFromGallery();
+                pickImageFromGallery()
             }
         }
     }
+
+
     /**
      *  pickImageFromGallery()
      *
      */
-
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
@@ -74,6 +85,7 @@ class GalleryFragment: Fragment() {
         //Permission code
         private val PERMISSION_CODE = 1001;
     }
+
     /**
      *  onRequestPermissionResult()
      *      handle requested permission result
@@ -89,7 +101,8 @@ class GalleryFragment: Fragment() {
                 }
                 else{
                     //permission from popup denied
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                    //context ** this => requireContext()
                 }
             }
         }

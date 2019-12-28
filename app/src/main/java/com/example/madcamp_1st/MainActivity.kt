@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,15 +18,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        setSupportActionBar(toolbar)
 
-        // adapter for view pager
+        // set adapter for view pager
         val adapter = MainAdapter(supportFragmentManager)
         view_pager.adapter = adapter
 
         // sync view pager with tabs
         tab.setupWithViewPager(view_pager)
+//
+//        if (savedInstanceState == null) { // !!!case 나누기
+//            changeFragment(GalleryFragment())
+//        }
+
+
 
     }
+
+//    fun changeFragment(f:Fragment, cleanStack:Boolean = false){
+//        val ft = supportFragmentManager.beginTransaction()
+////        ft.replace(R.id.ContactFragment, f)
+//        ft.addToBackStack(null) //???
+//        ft.commit()
+//    }
+
 
 }
 
