@@ -26,22 +26,30 @@ class MainActivity : AppCompatActivity() {
 
         // sync view pager with tabs
         tab.setupWithViewPager(view_pager)
-//
-//        if (savedInstanceState == null) { // !!!case 나누기
-//            changeFragment(GalleryFragment())
-//        }
 
 
+        setPermissions()
 
     }
 
-//    fun changeFragment(f:Fragment, cleanStack:Boolean = false){
-//        val ft = supportFragmentManager.beginTransaction()
-////        ft.replace(R.id.ContactFragment, f)
-//        ft.addToBackStack(null) //???
-//        ft.commit()
-//    }
-
+    /**
+     * setPermissions()
+     *      setting permissions on contacts
+     */
+    private fun setPermissions() =
+        if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            // manually defined but don't know
+            val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.READ_CONTACTS)) {
+                // description here if needed.
+            } else {
+                // No explanation needed, we can request the permission.
+                // TODO
+                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_READ_CONTACTS)
+            }
+        } else {
+            // Permission has already been granted
+        }
 
 }
 
@@ -90,23 +98,5 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
-    /**
-     * setPermissions()
-     *      setting permissions on contacts
-     */
-    private fun setPermissions() =
-        if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            // manually defined but don't know
-            val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.READ_CONTACTS)) {
-                // description here if needed.
-            } else {
-                // No explanation needed, we can request the permission.
-                // TODO
-                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_READ_CONTACTS)
-            }
-        } else {
-            // Permission has already been granted
-        }
 }
 */
