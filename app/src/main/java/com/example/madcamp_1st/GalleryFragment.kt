@@ -34,15 +34,12 @@ class GalleryFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getgallerypermission()
-
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
     }
-
 
     private fun getgallerypermission() {
         img_pick_btn.setOnClickListener {

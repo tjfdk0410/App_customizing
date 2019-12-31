@@ -1,15 +1,24 @@
 package com.example.madcamp_1st
 
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.RatingBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.contacts.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.contact_popup.*
+import kotlinx.android.synthetic.main.contacts.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class ContactFragment: Fragment() {
@@ -30,6 +39,28 @@ class ContactFragment: Fragment() {
         val mAdapter = MainRvAdapter(requireContext(), itemList)
         recycler_view.adapter = mAdapter
 
+        // set contact add button listener
+        contact_add_button.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            val dialogView = layoutInflater.inflate(R.layout.contact_popup, null)
+            val user_name = dialogView.findViewById<EditText>(R.id.popup_user_name)
+            val phone_number = dialogView.findViewById<EditText>(R.id.popup_phone_number)
+
+            builder.setView(dialogView)
+                .setPositiveButton("확인") {
+                    dialogInterface, i ->
+                        val userName = user_name.text.toString()
+                        val phoneNumber = phone_number.text.toString()
+                        itemList.add(Item(userName, phoneNumber))
+                }
+                .setNegativeButton("취소") {
+                    dialogInterface, i ->
+
+                }
+                .show()
+
+        }
+
         val layoutManager = LinearLayoutManager(requireContext())
         recycler_view.layoutManager = layoutManager
         recycler_view.setHasFixedSize(true)
@@ -41,7 +72,11 @@ class ContactFragment: Fragment() {
      */
     private fun loadMyContacts() {
         // set pointer for reading contacts
-        val contactsPointer = requireContext().contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null)
+        val contactsPointer = requireContext().contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
+                                                          null,
+                                                           null,
+                                                       null,
+                                                          ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" DESC")
         // if some errors occur (manage null pointer exception)
         if (contactsPointer == null) {
             System.exit(0); // some errors
@@ -79,9 +114,13 @@ class ContactFragment: Fragment() {
                 }
 //                Toast.makeText(requireContext(), "read all the contacts", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(requireContext(), "No ContactsFragment in the phone", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), "No Contacts in the phone", Toast.LENGTH_LONG).show()
             }
             contactsPointer.close()
         }
+    }
+
+    private fun addContact() {
+
     }
 }
