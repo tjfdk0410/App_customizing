@@ -26,11 +26,11 @@ class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>) :
 
     //위의 onCreateViewHolder에서 만든 view와 실제 입력되는 각각의 데이터를 연결한다.
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(itemList.get(position))
+        holder.bind(itemList.get(position))
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val gallPhoto = itemView?.findViewById<ImageView>(R.id.gallphoto)
+        val gallPhoto = itemView.findViewById<ImageView>(R.id.gallphoto)
         //종류 정하기, layout과 연결
         fun bind(Im: Image) {
 //            for (i in itemList) {

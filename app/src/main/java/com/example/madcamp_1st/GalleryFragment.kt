@@ -61,21 +61,14 @@ class GalleryFragment: Fragment() {
 ////        rv.setHasFixedSize(true)
 ////
 ////        rv.adapter = galleryAdapter
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
+        imgList.add(Image(Uri.parse("file://https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        var rv: RecyclerView = view.findViewById(R.id.gallRecyclerView)
+        //var rv: RecyclerView = view.findViewById(R.id.gallRecyclerView)
         var galleryAdapter = GalleryRVAdapter(context, imgList)
-//        {Image ->
-//            getgallerypermission()
-//            print("getgeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa여긴 안 돈다")
-//        }
-        rv.adapter = galleryAdapter
+        gallRecyclerView.adapter = galleryAdapter
 
         var SPAN_COUNT = 2
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -85,8 +78,8 @@ class GalleryFragment: Fragment() {
 
         val layoutManager = GridLayoutManager(requireContext(), SPAN_COUNT)
 //        val layoutManager = LinearLayoutManager(requireContext())
-        rv.layoutManager = layoutManager
-        rv.setHasFixedSize(true)
+        gallRecyclerView.layoutManager = layoutManager
+        gallRecyclerView.setHasFixedSize(true)
         getgallerypermission()
     }
 
@@ -144,6 +137,7 @@ class GalleryFragment: Fragment() {
         intent.setType("image/*")
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) //activity 간의 인수와 리턴값을 전달(저장)
         startActivityForResult(Intent.createChooser(intent, "Select picture"), IMAGE_PICK_CODE)
+
     }
 
     companion object {
@@ -205,8 +199,8 @@ class GalleryFragment: Fragment() {
 //            imgList = imgList
             if (clipData != null) {
                 for (i in 0 until clipData.itemCount) {
-                    val str = clipData.getItemAt(i).toString()
-                    imgList.add(Image(Uri.parse(str)))
+                    val str = clipData.getItemAt(i).uri
+                    imgList.add(Image(str))
                 }
             }
 
