@@ -12,7 +12,7 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="670sp"
-        android:paddingTop="40sp"
+        android:paddingTop="32sp"
         app:layout_constraintBottom_toTopOf="@+id/tab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

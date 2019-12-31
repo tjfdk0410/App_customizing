@@ -2,6 +2,7 @@ package com.example.madcamp_1st
 
 import ai.fritz.core.Fritz
 import ai.fritz.stylepaintingmodels.PaintingStyles
+import ai.fritz.stylepaintingmodels.PatternStyles
 import ai.fritz.vision.*
 import ai.fritz.vision.styletransfer.FritzVisionStylePredictor
 import android.os.Bundle
@@ -125,7 +126,7 @@ class ImageProcessor(val activity: FragmentActivity, val image_view: ImageView) 
          *  reference below
          *  https://docs.fritz.ai/develop/vision/style-transfer/android.html#
          */
-        val styleOnDeviceModel =  PaintingStyles.STARRY_NIGHT
+        val styleOnDeviceModel = PaintingStyles.STARRY_NIGHT
         predictor = FritzVision.StyleTransfer.getPredictor(styleOnDeviceModel)
 
 

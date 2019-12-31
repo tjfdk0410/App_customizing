@@ -24,7 +24,6 @@
             android:id="@+id/view_finder"
             android:layout_width="match_parent"
             android:layout_height="302sp"
-            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
