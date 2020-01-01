@@ -22,21 +22,27 @@ class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>) : 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val gallPhoto = holder.itemView.findViewById<ImageView>(R.id.gallphoto)
-        gallPhoto.setImageURI(itemList.get(position).uri)
-        holder.bind(itemList.get(position))
+        holder.bind(itemList[position])
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val gallPhoto = itemView.findViewById<ImageView>(R.id.gallphoto)
-//        gallPhoto.setImageURI(Im.uri)
+
 
         fun bind(Im: Image) {
-//            for (i in itemList) {
-        //            println("11111111111111111111111111111111111111111"+Im.uri)
-            gallPhoto.setImageURI(Im.uri)
-//            notifyDataSetChanged()
-//            itemView.setOnClickListener{itemClick(Im)}
+            if (Im.name !=""){
+                if (context != null) {
+                    val resourceId = context.resources.getIdentifier(Im.name,
+                        "drawable",
+                        context.packageName
+                    )
+                    gallPhoto.setImageResource(resourceId)
+                }
+
+            }
+            else  {
+                gallPhoto.setImageURI(Im.uri)
+            }
         }
     }
 }

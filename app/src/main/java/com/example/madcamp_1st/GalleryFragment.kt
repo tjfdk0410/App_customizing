@@ -45,7 +45,6 @@ class GalleryFragment: Fragment() {
     ): View? {
 
         var view = inflater.inflate(R.layout.gallery, container, false) //fragement 생성 위한 view를 gallery에서 띄우고 반환
-        imgList.add(Image(Uri.parse("file://https://cdn.pixabay.com/photo/2019/12/23/15/07/freiburg-4714770_960_720.jpg")))
         return view
     }
 
@@ -88,9 +87,13 @@ class GalleryFragment: Fragment() {
 
 
     private fun loadImages(){
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2018/11/24/01/35/christmas-motif-3834860__340.jpg")))
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2019/12/03/07/34/gift-4669449__340.jpg")))
-        imgList.add(Image(Uri.parse("https://cdn.pixabay.com/photo/2016/10/30/09/30/hot-chocolate-1782623__340.jpg")))
+        imgList.add(Image("jellyfish", Uri.parse("")))
+        imgList.add(Image("beach01", Uri.parse("")))
+        imgList.add(Image("sea", Uri.parse("")))
+        imgList.add(Image("people", Uri.parse("")))
+        imgList.add(Image("ocean", Uri.parse("")))
+        imgList.add(Image("sunrise", Uri.parse("")))
+        imgList.add(Image("beach02", Uri.parse("")))
         galleryAdapter.notifyDataSetChanged()
     }
 
@@ -151,7 +154,7 @@ class GalleryFragment: Fragment() {
             if (clipData != null) {
                 for (i in 0 until clipData.itemCount) {
                     val str = clipData.getItemAt(i).uri
-                    imgList.add(Image(str))
+                    imgList.add(Image("", str))
                 }
             }
             galleryAdapter.notifyDataSetChanged()
