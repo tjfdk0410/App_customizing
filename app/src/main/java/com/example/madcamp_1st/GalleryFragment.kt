@@ -35,7 +35,7 @@ private val PERMISSION_CODE = 1001
 class GalleryFragment: Fragment() {
 
     var imgList = arrayListOf<Image>()
-    private var SPAN_COUNT = 2
+    private var SPAN_COUNT = 3
     lateinit var galleryAdapter: GalleryRVAdapter
 
     override fun onCreateView(
