@@ -27,6 +27,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.gallery.*
 
+import com.example.madcamp_1st.R
+import com.example.madcamp_1st.R.layout.gallery
+import com.example.madcamp_1st.GalleryRVAdapter
+//import com.example.madcamp_1st.GalleryImageClickListener
+//import com.thesimplycoder.imagegallery.adapter.Image
+
 //image pick code
 private val IMAGE_PICK_CODE = 1000
 //Permission code
@@ -35,7 +41,7 @@ private val PERMISSION_CODE = 1001
 class GalleryFragment: Fragment() {
 
     var imgList = arrayListOf<Image>()
-    private var SPAN_COUNT = 3
+    private var SPAN_COUNT = 2
     lateinit var galleryAdapter: GalleryRVAdapter
 
     override fun onCreateView(
@@ -49,8 +55,9 @@ class GalleryFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        galleryAdapter = GalleryRVAdapter(requireContext(), imgList)
+        galleryAdapter = GalleryRVAdapter(requireContext(), imgList, requireActivity().supportFragmentManager)
         gallRecyclerView.adapter = galleryAdapter
+//        galleryAdapter.listner = this
 
         loadImages()
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -86,6 +93,7 @@ class GalleryFragment: Fragment() {
     }
 
 
+
     private fun loadImages(){
         imgList.add(Image("jellyfish", Uri.parse("")))
         imgList.add(Image("beach01", Uri.parse("")))
@@ -94,7 +102,23 @@ class GalleryFragment: Fragment() {
         imgList.add(Image("ocean", Uri.parse("")))
         imgList.add(Image("sunrise", Uri.parse("")))
         imgList.add(Image("beach02", Uri.parse("")))
+        imgList.add(Image("apple", Uri.parse("")))
+        imgList.add(Image("cat", Uri.parse("")))
+        imgList.add(Image("dog", Uri.parse("")))
+        imgList.add(Image("lake", Uri.parse("")))
         galleryAdapter.notifyDataSetChanged()
+    }
+
+    fun onClick(position: Int) {
+
+        val bundle = Bundle()
+        bundle.putSerializable("images", imgList)
+        bundle.putInt("position",position)
+
+        val fragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
+        val galleryFullFragment = GalleryFullscreenFragment()
+        galleryFullFragment.arguments = bundle
+        galleryFullFragment.show(fragmentTransaction,"gallery")
     }
 
 
@@ -154,7 +178,7 @@ class GalleryFragment: Fragment() {
             if (clipData != null) {
                 for (i in 0 until clipData.itemCount) {
                     val str = clipData.getItemAt(i).uri
-                    imgList.add(Image("", str))
+                    imgList.add(Image("galleryphoto_0" + i , str))
                 }
             }
             galleryAdapter.notifyDataSetChanged()

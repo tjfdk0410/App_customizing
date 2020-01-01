@@ -2,15 +2,21 @@ package com.example.madcamp_1st
 
 import android.content.Context
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.gallery.*
 
-class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>) : RecyclerView.Adapter<GalleryRVAdapter.Holder>() {
+//import com.thesimplycoder.imagegallery.adapter.Image
+import kotlinx.android.synthetic.main.gallery_rv_item.view.*
+
+class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>, val supportFragmentManager: FragmentManager) : RecyclerView.Adapter<GalleryRVAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.gallery_rv_item, parent, false)
@@ -30,7 +36,7 @@ class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>) : 
 
 
         fun bind(Im: Image) {
-            if (Im.name !=""){
+            if (Im.uri == Uri.parse("")){
                 if (context != null) {
                     val resourceId = context.resources.getIdentifier(Im.name,
                         "drawable",
@@ -42,6 +48,28 @@ class GalleryRVAdapter(val context : Context?, val itemList:ArrayList<Image>) : 
             }
             else  {
                 gallPhoto.setImageURI(Im.uri)
+            }
+
+            gallPhoto.setOnClickListener {
+
+                val bundle = Bundle()
+                var position: Int = 0
+                for ((i, image) in itemList.withIndex()) {
+                    if (image == Im) {
+                        position = i
+                    }
+                }
+                bundle.putSerializable("images", itemList)
+                bundle.putInt("position", position)
+
+//                // handle click of image
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+////                supportFragmentManager.beginTransaction().replace(R.id.gallphoto, GalleryFullscreenFragment()).commit()
+                val galleryFullFragment = GalleryFullscreenFragment()//full인지 아닌지
+                galleryFullFragment.arguments = bundle
+                galleryFullFragment.show(fragmentTransaction, "gallery")
+
+
             }
         }
     }
